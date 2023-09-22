@@ -1,6 +1,7 @@
+from os import name
 import random
 from PIL import Image, ImageDraw, ImageFont
-from names import NameSelector
+from name import NameSelector
 
 image = Image.new("RGB", (750, 750), (0,0,0))
 fnt_title = ImageFont.truetype("LucidaTypewriterBold.ttf", 70)
@@ -27,4 +28,11 @@ draw_image.text((WIDTH / 2 - 75, HEIGHT - 300),
 "Agility \n 30", font = fnt_stat, align = "center")
 draw_image.text((WIDTH - 175, HEIGHT - 300), "Defense \n 99",
 font = fnt_stat, align = "center")
+name = NameSelector().get_name()
+draw_image.text(
+  (55, 10),
+  name,
+  font = fnt_title
+)
+
 image.save("fullcard.jpg")
