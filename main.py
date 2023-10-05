@@ -5,6 +5,7 @@ import requests
 from PIL import Image, ImageDraw, ImageFont
 from name import NameSelector
 import Background
+from bs4 import BeautifulSoup
 
 image = Image.new("RGB", (750, 750), (0,0,0))
 fnt_title = ImageFont.truetype("LucidaTypewriterBold.ttf", 70)
@@ -16,9 +17,27 @@ draw_image = ImageDraw.Draw(image)
 Background_image = Image.open("background.jpg")
 image.paste(Background_image), (0, 0)
 
-URL = "https://thispersondoesnotexist.com/image"
-person_image = Image.open(requests.get(URL, stream = True).raw)
-person_resize = person_image.resize((650, 550))
+# URL = "https://thispersondoesnotexist.com/image"
+# person_image = Image.open(requests.get(URL, stream = True).raw)
+# person_resize = person_image.resize((650, 550))
+# image.paste(person_resize, (50, 100))
+is_image = False
+
+while is_image == False:
+  
+  URL = "https://marvel.fandom.com/wiki/Special:RandomInCategory/Characters"
+  page = requests.get(URL)
+  soup = BeautifulSoup(page.content, "html.parser")
+  try:
+    
+    findImage = soup.find("img", class_= "pi-image-thumbnail").attrs["src"]
+    img = Image.open(requests.get(findImage, stream = True).raw)
+    is_image = True
+  except:
+    print("image was not found.")
+img.save('character.png')
+person_img = Image.open('character.png')
+person_resize = person_img.resize((650, 550))
 image.paste(person_resize, (50, 100))
 main_Rect = [
   (50, 100), 
