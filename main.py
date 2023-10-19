@@ -10,6 +10,7 @@ from bs4 import BeautifulSoup
 image = Image.new("RGB", (750, 750), (0,0,0))
 fnt_title = ImageFont.truetype("LucidaTypewriterBold.ttf", 45)
 fnt_stat = ImageFont.truetype("LucidaTypewriterBold.ttf", 30)
+fnt_bottom = ImageFont.truetype("LucidaTypewriterBold.ttf", 20)
 
 # global variables
 HEIGHT, WIDTH = image.size
@@ -73,5 +74,8 @@ star_image = Image.open("star.png").convert("RGBA")
 star_resize = star_image.resize((35, 30))
 for idx, i in enumerate(range(rarity_value)):
   
-  image.paste(star_resize, (main_Rect[0][0] +(idx * 50), main_Rect[0][1] + 560), star_resize)
+  image.paste(star_resize, (main_Rect[0][0] +(idx * 40), main_Rect[0][1] +1 ), star_resize)
+draw_image.text((bannerRectangle[0][0] + 250, bannerRectangle[0][1] + 15), "Card by: Darius", 
+font = fnt_bottom,
+fill = "Black")
 image.save("fullcard.jpg")
